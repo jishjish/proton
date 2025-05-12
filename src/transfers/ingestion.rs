@@ -2,11 +2,11 @@ use std::path::PathBuf;
 use polars::prelude::*;
 
 
-pub struct Transfer {
+pub struct TransferIngestion {
     pub reference_df: DataFrame,
 }
 
-impl Transfer {
+impl TransferIngestion {
 
     pub fn new() -> Self {
         Self {
@@ -35,9 +35,9 @@ impl Transfer {
     }
 
     /// Check input validity of parquet file against default schema
-    pub fn check_schema_validity(&mut self, filepath: &PathBuf) -> Result<(), Box<dyn std::error::Error>> {
+    pub fn check_schema_validity(&mut self, filepath: &PathBuf) -> PolarsResult<DataFrame> {
         // Generate reference dataframe to check incoming schema
-        self._generate_reference()?;
+        self._generate_reference();
         
         // Open file path and attempt to turn into dataframe
         let mut file = std::fs::File::open(filepath).unwrap();
@@ -49,10 +49,8 @@ impl Transfer {
 
         // Assert that schemas match
         assert_eq!(sch, ref_sch, "Schema mismatch for file {:?}: expected reference schema", filepath);
-        Ok(())
+        Ok(df)
     } 
-
-    
 
 }
 

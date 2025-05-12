@@ -4,5 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+arrow = "55.0.0"
 polars = { version = "0.47.1", features = ["parquet"]}
 schemars = "0.8.22"
