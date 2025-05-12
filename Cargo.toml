@@ -1,0 +1,8 @@
+[package]
+name = "proton"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+polars = { version = "0.47.1", features = ["parquet"]}
+schemars = "0.8.22"
