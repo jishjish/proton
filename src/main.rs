@@ -4,19 +4,14 @@ use std::path::PathBuf;
 
 
 // use proton::transfers::*;
-use proton::transfers::ingestion::TransferIngestion; 
-use proton::transfers::compression::block_number;
+use proton::transfers::transfers::Transfer;
 
 fn main() {
-
     // get args 
     let args: Vec<String> = env::args().collect();
 
-    // transfer check
-    // let schema_check = transfer.check_schema_validity(&PathBuf::from(&args[1])).unwrap();
-    // println!("{:?}", schema_check);
-
-
-    let t = block_number(&PathBuf::from(&args[1])).unwrap();
+    // instantiate transfer
+    let mut transfers = Transfer::new();
+    let o = transfers.orchestrate(&PathBuf::from(&args[1])).unwrap();
 
 }

@@ -1,7 +1,6 @@
 use std::path::PathBuf;
 use polars::prelude::*;
 
-
 pub struct TransferIngestion {
     pub reference_df: DataFrame,
 }
