@@ -1,6 +1,14 @@
 use std::mem;
 use polars::prelude::*;
 
+use super::utils::mode;
+
+enum SizeType {
+    Small(u8),
+    Medium(u16),
+    Large(u32),
+}
+
 pub struct RLECompressedBlockNumberSeries {
     pub values: Vec<u32>,    // Unique values in sequence
     pub counts: Vec<u16>,    // Count of consecutive repetitions
@@ -16,8 +24,8 @@ impl RLECompressedBlockNumberSeries {
     }
 
     pub fn block_number(&mut self, dataset: DataFrame) -> Result<(), Box<dyn std::error::Error>> {
-        // establish incoming col len
-        // let num_rows = dataset.height();
+        // establish incoming col len // let num_rows = dataset.height();
+
         let blocks = dataset.column("block_number").unwrap();
         let block_vec: Vec<Option<u32>> = blocks.u32()?.into_iter().collect();
 
@@ -26,9 +34,19 @@ impl RLECompressedBlockNumberSeries {
             return Ok(())
         }
 
+
+        // get mode for reference to SizeType enum
+        let mode_val = mode(&block_vec);
+
+
+        
+
+
+       // set initial block as current value, and initial count as 1
         let mut current_value = block_vec[0].unwrap();
         let mut current_count = 1 as u16;
 
+        // iterate through blocks, skip first, 
         for block in block_vec.iter().skip(1) {
             let b = block.unwrap();
             if b == current_value {
@@ -41,12 +59,15 @@ impl RLECompressedBlockNumberSeries {
                 current_count = 1;
             }
         }
-
         self.values.push(current_value);
         self.counts.push(current_count.into());
 
-        println!("{:?}", self.values);
 
+
+
+
+
+        // check size comparisons
         let block_size = block_vec.capacity() * mem::size_of::<Option<u32>>();
         let compressed_size = self.values.capacity() * mem::size_of::<u32>() + 
                             self.counts.capacity() * mem::size_of::<u16>();
