@@ -1,8 +1,10 @@
 use std::path::PathBuf;
 use polars::prelude::*;
+
 // internal code
 use super::ingestion::TransferIngestion;
-use super::compression::compress;
+use crate::transfers::compression::{RLECompressedBlockNumberSeries};
+
 
 pub struct Transfer {
     pub og_df: DataFrame,            // incoming dataset (from filepath)
@@ -46,7 +48,7 @@ impl Transfer {
         let schema_check = transfer.check_schema_validity(filepath).unwrap();
         
         // begin compression of dataset
-        compress(schema_check); 
+        // compress(schema_check); 
 
        
         Ok(())
