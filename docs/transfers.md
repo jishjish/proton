@@ -1,14 +1,14 @@
-Schema example for transfer parquet data
-    block_number: u32
-    transaction_index: u32
-    log_index: u32
-    transaction_hash: String
-    erc20: String
-    from_address: Striing
-    to_address: String
-    value_binary: String
-    value_string: String
-    value_f64: f64
-    chain_id: u64
+Schema example for transfer parquet data <br>
+    block_number: u32 <br>
+    transaction_index: u32 <br>
+    log_index: u32 <br>
+    transaction_hash: String <br>
+    erc20: String <br>
+    from_address: String <br>
+    to_address: String <br>
+    value_binary: String <br>
+    value_string: String <br>
+    value_f64: f64 <br>
+    chain_id: u64 <br>
 
 
