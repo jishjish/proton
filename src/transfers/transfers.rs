@@ -2,6 +2,7 @@ use std::path::PathBuf;
 use polars::prelude::*;
 // internal code
 use super::ingestion::TransferIngestion;
+use super::compression::compress;
 
 pub struct Transfer {
     pub og_df: DataFrame,            // incoming dataset (from filepath)
@@ -21,26 +22,31 @@ impl Transfer {
     }
 
     /// Set new filepath based on incoming path. Will be same location, just with prefix "PROTON_"
-    pub fn update_path(&mut self, filepath: &PathBuf) -> Result<(), Box<dyn std::error::Error>> {
+    pub fn _update_path(&mut self, filepath: &PathBuf) -> Result<(), Box<dyn std::error::Error>> {
+
         // set output file path; add 'PROTON_' designation
         let mut path = PathBuf::from(filepath);
         let filename = path.file_name().unwrap().to_string_lossy();
+
         // add designation to string lossy filename
         let amended_filename = format!("PROTON_{}", filename);
+
         // set file name, push to mut path
         path.set_file_name(amended_filename);
         self.output_filepath = path;
-        // println!("new path is {:?}", self.output_filepath);
         Ok(())
     }
 
 
     pub fn orchestrate(&mut self, filepath: &PathBuf) -> Result<(), Box<dyn std::error::Error>> {
-
+        //! 1) Verify incoming schema is equal to reference value (ingestion.rs)
+        //! 2) Pass through compression algos (compression.rs)
+        //! 3) Write to new file
         let mut transfer = TransferIngestion::new();
         let schema_check = transfer.check_schema_validity(filepath).unwrap();
-
-        self.update_path(&filepath);
+        
+        // begin compression of dataset
+        compress(schema_check); 
 
        
         Ok(())

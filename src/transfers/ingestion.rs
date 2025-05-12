@@ -36,7 +36,7 @@ impl TransferIngestion {
     /// Check input validity of parquet file against default schema
     pub fn check_schema_validity(&mut self, filepath: &PathBuf) -> PolarsResult<DataFrame> {
         // Generate reference dataframe to check incoming schema
-        self._generate_reference();
+        let _ = self._generate_reference();
         
         // Open file path and attempt to turn into dataframe
         let mut file = std::fs::File::open(filepath).unwrap();
