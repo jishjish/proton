@@ -59,12 +59,12 @@ impl Transfer {
         // 1) block_number: rle compression
         let mut block_compression = RLECompressedBlockNumberSeries::new();
         let compressed_blocks = block_compression.compress_block_number(&schema_check);
-        println!("Compressed blocks: {:?}", compressed_blocks);
+        // println!("Compressed blocks: {:?}", compressed_blocks);
 
         // 2) transaction_index: rle compression
         let mut transaction_compression = RLECompressedTransactionIndexSeries::new();
         let compressed_trans_index = transaction_compression.compress_transaction_index(&schema_check);
-        println!("Compressed transaction index: {:?}", compressed_trans_index);
+        // println!("Compressed transaction index: {:?}", compressed_trans_index);
 
 
 

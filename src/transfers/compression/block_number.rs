@@ -1,6 +1,8 @@
 use std::mem;
 use polars::prelude::*;
 // use super::utils::mode;
+use owo_colors::OwoColorize;
+
 
 pub struct RLECompressedBlockNumberSeries {
     pub values: Vec<u32>,    // Unique values in sequence
@@ -52,8 +54,8 @@ impl RLECompressedBlockNumberSeries {
         let compressed_size = self.values.capacity() * mem::size_of::<u32>() + 
                             self.counts.capacity() * mem::size_of::<u16>();
 
-        println!("Original: {} bytes", block_size);
-        println!("Compressed: {} bytes", compressed_size);
+        println!("Original block index: {} bytes", block_size.red());
+        println!("Compressed block index: {} bytes", compressed_size.green());
         println!("Compression Ratio: {:.2}", block_size as f64 / compressed_size as f64);
 
         // assert that output is equal in len to input

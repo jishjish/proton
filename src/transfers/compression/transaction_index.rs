@@ -1,5 +1,8 @@
 use std::mem;
 use polars::prelude::*;
+use owo_colors::OwoColorize;
+
+
 
 pub struct RLECompressedTransactionIndexSeries {
     pub values: Vec<u32>,    // Unique values in sequence
@@ -19,11 +22,7 @@ impl RLECompressedTransactionIndexSeries {
         // establish incoming col len // let num_rows = dataset.height();
 
         let transaction_index = dataset.column("transaction_index").unwrap();
-        // let blocks = dataset.column("block_number").unwrap();
-        
         let transaction_index_vec: Vec<Option<u32>> = transaction_index.u32()?.into_iter().collect();
-        // let block_vec: Vec<Option<u32>> = blocks.u32()?.into_iter().collect();
-
         // println!("{:?}", transaction_index_vec);
 
         // early return if vec is empty
@@ -56,13 +55,12 @@ impl RLECompressedTransactionIndexSeries {
         let compressed_size = self.values.capacity() * mem::size_of::<u32>() + 
                             self.counts.capacity() * mem::size_of::<u16>();
 
-        println!("Original transaction index: {} bytes", transaction_index_size);
-        println!("Compressed transaction index: {} bytes", compressed_size);
+        println!("Original transaction index: {} bytes", transaction_index_size.red());
+        println!("Compressed transaction index: {} bytes", compressed_size.green());
         println!("Compression Ratio: {:.2}", transaction_index_size as f64 / compressed_size as f64);
 
         // assert that output is equal in len to input
         // assert_eq!()
-        // Ok(())
 
         Ok((self.values.clone(), self.counts.clone()))
     }
