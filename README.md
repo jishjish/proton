@@ -1,6 +1,6 @@
 # Proton
 
-Crypto data is ubiquitous, ~free~, and public... yet it is largely unusable if trying to reference at scale. <br>
+Crypto data is ubiquitous, "free", and public... yet it is largely unusable if trying to reference at scale. <br>
 
 Building on open source data extraction tools Proton aims to provide highly specialized compression for commonly used crypto datasets (transfers, logs, metadata, etc.). At present, Proton is focused on buiding through Parquet file types.
 
