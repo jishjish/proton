@@ -1,7 +1,6 @@
 # Proton
-
-Crypto data is ubiquitous, "free", and public... yet it is largely unusable if trying to reference at scale. <br>
-Proton sets out to create highly specialized compression algorithms for common datasets on a "column by column" approach. <br>
+Crypto data is ubiquitous, "free", and public... yet it is largely unusable if trying to reference at scale.
+Proton sets out to create highly specialized compression algorithms for common datasets on a "column by column" approach.
 Proton will evenetually morph to a Rust crate, but for now is in alpha/early development.
 
 ## Why Proton?
