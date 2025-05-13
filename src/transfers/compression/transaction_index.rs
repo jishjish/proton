@@ -15,7 +15,7 @@ impl RLECompressedTransactionIndexSeries {
         }
     }
 
-    pub fn compress_transaction_index(&mut self, dataset: &DataFrame) -> Result<(), Box<dyn std::error::Error>> {
+    pub fn compress_transaction_index(&mut self, dataset: &DataFrame) -> Result<(Vec<u32>, Vec<u16>), Box<dyn std::error::Error>> {
         // establish incoming col len // let num_rows = dataset.height();
 
         let transaction_index = dataset.column("transaction_index").unwrap();
@@ -28,7 +28,7 @@ impl RLECompressedTransactionIndexSeries {
 
         // early return if vec is empty
         if transaction_index_vec.is_empty() {
-            return Ok(())
+            return Ok((Vec::new(), Vec::new()))
         }
 
        // set initial transaction index as current value, and initial count as 1
@@ -62,7 +62,9 @@ impl RLECompressedTransactionIndexSeries {
 
         // assert that output is equal in len to input
         // assert_eq!()
-        Ok(())
+        // Ok(())
+
+        Ok((self.values.clone(), self.counts.clone()))
     }
 }
 

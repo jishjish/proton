@@ -2,7 +2,6 @@ use std::env;
 use std::path::PathBuf;
 // use polars::prelude::*;
 
-
 // use proton::transfers::*;
 use proton::transfers::transfers::Transfer;
 
@@ -13,7 +12,6 @@ fn main() {
     // instantiate transfer
     let mut transfers = Transfer::new();
     let o = transfers.orchestrate(&PathBuf::from(&args[1])).unwrap();
-
 
 
     // let idk

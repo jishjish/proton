@@ -63,8 +63,8 @@ impl Transfer {
 
         // 2) transaction_index: rle compression
         let mut transaction_compression = RLECompressedTransactionIndexSeries::new();
-        transaction_compression.compress_transaction_index(&schema_check);
-
+        let compressed_trans_index = transaction_compression.compress_transaction_index(&schema_check);
+        println!("Compressed transaction index: {:?}", compressed_trans_index);
 
 
 
