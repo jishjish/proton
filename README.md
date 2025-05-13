@@ -1,7 +1,7 @@
 # Proton
-Crypto data is ubiquitous, "free", and public... yet it is largely unusable if trying to reference at scale.
+Crypto data is ubiquitous, "free", and public... yet it is largely unusable if trying to reference historically at scale.
 Proton sets out to create highly specialized compression algorithms for common datasets on a "column by column" approach.
-Proton will evenetually morph to a Rust crate, but for now is in alpha/early development.
+Proton will eventually morph to a Rust crate, but for now is in alpha/early development.
 
 ## Why Proton?
 - Crypto data is cumbersome, hard to decipher, and memory intensive.
@@ -9,8 +9,8 @@ Proton will evenetually morph to a Rust crate, but for now is in alpha/early dev
 - Datasets are often highly repetitive, following formats that could benefit from specialized compression.
 
 ## Overview
-- Proton early development is focused on the followign datasets: transfers, logs, and token metadata.
-- Building on open source data extraction tools Proton aims to provide highly specialized compression for commonly used crypto datasets (transfers, logs, metadata, etc.). At present, Proton is focused on buiding through Parquet file types.
+- Proton early development is focused on the following datasets: transfers, logs, and token metadata.
+- Building on open source data extraction tools Proton aims to provide highly specialized compression for commonly used crypto datasets (transfers, logs, metadata, etc.). At present, Proton is focused on building through Parquet file types.
 
 ## Current Status
 - Alpha/early development stage
