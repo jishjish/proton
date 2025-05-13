@@ -8,7 +8,7 @@ Proton will evenetually morph to a Rust crate, but for now is in alpha/early dev
 - Historical data can be highly relevant, but not schematically available in many use cases.
 - Datasets are often highly repetitive, following formats that could benefit from specialized compression.
 
-## Project Overview/Introduction
+## Overview
 - Proton early development is focused on the followign datasets: transfers, logs, and token metadata.
 - Building on open source data extraction tools Proton aims to provide highly specialized compression for commonly used crypto datasets (transfers, logs, metadata, etc.). At present, Proton is focused on buiding through Parquet file types.
 
