@@ -1,13 +1,6 @@
 use std::mem;
 use polars::prelude::*;
-
-use super::utils::mode;
-
-enum SizeType {
-    Small(u8),
-    Medium(u16),
-    Large(u32),
-}
+// use super::utils::mode;
 
 pub struct RLECompressedBlockNumberSeries {
     pub values: Vec<u32>,    // Unique values in sequence
@@ -23,7 +16,7 @@ impl RLECompressedBlockNumberSeries {
         }
     }
 
-    pub fn block_number(&mut self, dataset: DataFrame) -> Result<(), Box<dyn std::error::Error>> {
+    pub fn compress_block_number(&mut self, dataset: &DataFrame) -> Result<(Vec<u32>, Vec<u16>), Box<dyn std::error::Error>> {
         // establish incoming col len // let num_rows = dataset.height();
 
         let blocks = dataset.column("block_number").unwrap();
@@ -31,16 +24,8 @@ impl RLECompressedBlockNumberSeries {
 
         // early return if vec is empty
         if block_vec.is_empty() {
-            return Ok(())
+            return Ok((Vec::new(), Vec::new()));
         }
-
-
-        // get mode for reference to SizeType enum
-        let mode_val = mode(&block_vec);
-
-
-        
-
 
        // set initial block as current value, and initial count as 1
         let mut current_value = block_vec[0].unwrap();
@@ -53,7 +38,7 @@ impl RLECompressedBlockNumberSeries {
                 current_count += 1 as u16;
             } else {
                 self.values.push(current_value);
-                self.values.push(current_count.into());
+                self.counts.push(current_count.into());
 
                 current_value = b;
                 current_count = 1;
@@ -62,11 +47,6 @@ impl RLECompressedBlockNumberSeries {
         self.values.push(current_value);
         self.counts.push(current_count.into());
 
-
-
-
-
-
         // check size comparisons
         let block_size = block_vec.capacity() * mem::size_of::<Option<u32>>();
         let compressed_size = self.values.capacity() * mem::size_of::<u32>() + 
@@ -74,9 +54,12 @@ impl RLECompressedBlockNumberSeries {
 
         println!("Original: {} bytes", block_size);
         println!("Compressed: {} bytes", compressed_size);
+        println!("Compression Ratio: {:.2}", block_size as f64 / compressed_size as f64);
+
         // assert that output is equal in len to input
         // assert_eq!()
-        Ok(())
+        Ok((self.values.clone(), self.counts.clone()))
+
     }
 }
 
