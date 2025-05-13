@@ -88,9 +88,6 @@ impl Transfer {
         // let mut file = File::create("data/combined.parquet")?;
         // ParquetWriter::new(&mut file).finish(&mut combined)?;
 
-
-    
-       
         Ok(())
     }
 }
