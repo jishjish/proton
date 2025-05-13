@@ -16,4 +16,4 @@ Proton will evenetually morph to a Rust crate, but for now is in alpha/early dev
 - Alpha/early development stage
 - Testing compression ratios against standard solutions
 - Exploring optimal algorithms for different data columns
-- Planning migration to a Rust crate for production use
+- Planning migration to a Rust crate through [crates](https://crates.io/)
