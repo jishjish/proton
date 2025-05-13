@@ -1,8 +1,6 @@
 use std::mem;
 use polars::prelude::*;
-// use super::utils::mode;
 use owo_colors::OwoColorize;
-
 
 pub struct RLECompressedBlockNumberSeries {
     pub values: Vec<u32>,    // Unique values in sequence

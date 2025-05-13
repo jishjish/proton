@@ -2,8 +2,6 @@ use std::mem;
 use polars::prelude::*;
 use owo_colors::OwoColorize;
 
-
-
 pub struct RLECompressedTransactionIndexSeries {
     pub values: Vec<u32>,    // Unique values in sequence
     pub counts: Vec<u16>,    // Count of consecutive repetitions
