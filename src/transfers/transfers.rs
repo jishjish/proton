@@ -4,7 +4,7 @@ use polars::prelude::*;
 
 // internal code
 use super::ingestion::TransferIngestion;
-use crate::transfers::compression::{RLECompressedBlockNumberSeries, RLECompressedTransactionIndexSeries};
+use crate::transfers::compression::{RLECompressedBlockNumberSeries, RLECompressedTransactionIndexSeries, compress_value_string};
 
 
 pub struct Transfer {
@@ -49,6 +49,9 @@ impl Transfer {
         let mut transfer = TransferIngestion::new();
         let schema_check = transfer.check_schema_validity(filepath).unwrap();
         // println!("schema check is {}", schema_check);
+        // let column_a = schema_check["value_string"].clone();
+        // println!("{:?}", column_a);
+
 
         // NOTE: Ensure congruency in df creation for various column compressions
         /* Given there are multiple compression algorithms being used it is 
@@ -65,6 +68,10 @@ impl Transfer {
         let mut transaction_compression = RLECompressedTransactionIndexSeries::new();
         let compressed_trans_index = transaction_compression.compress_transaction_index(&schema_check);
         // println!("Compressed transaction index: {:?}", compressed_trans_index);
+
+        // n) value_strings: unknown
+        let v_s_comp = compress_value_string(&schema_check);
+        println!("value string: {:?}", v_s_comp);
 
 
 
