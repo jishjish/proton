@@ -16,6 +16,7 @@ impl RLECompressedBlockNumberSeries {
         }
     }
 
+    /// Compress block number column in transfers dataset through RLE methodology.
     pub fn compress_block_number(&mut self, dataset: &DataFrame) -> Result<(Vec<u32>, Vec<u16>), Box<dyn std::error::Error>> {
         // establish incoming col len // let num_rows = dataset.height();
 
@@ -66,6 +67,12 @@ impl RLECompressedBlockNumberSeries {
         // assert_eq!()
         Ok((self.values.clone(), self.counts.clone()))
 
+    }
+
+
+    /// Decompression of RLE compressed block number data in the transfer dataset.
+    pub fn decompress_block_number() -> Result<(), Box<dyn std::error::Error>> {
+        Ok(())
     }
 }
 
