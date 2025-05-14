@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 arrow = "55.0.0"
+num-bigint = "0.4.6"
 owo-colors = "4.2.0"
 polars = { version = "0.47.1", features = ["parquet"]}
 schemars = "0.8.22"
