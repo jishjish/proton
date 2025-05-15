@@ -11,7 +11,7 @@ fn main() {
 
     // instantiate transfer
     let mut transfers = Transfer::new();
-    let _o = transfers.orchestrate(&PathBuf::from(&args[1])).unwrap();
+    let _o = transfers.compress(&PathBuf::from(&args[1])).unwrap();
 
 
 }

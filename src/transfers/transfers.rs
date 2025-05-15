@@ -51,7 +51,7 @@ impl Transfer {
         Ok(())
     }
 
-    pub fn orchestrate(&mut self, filepath: &PathBuf) -> Result<(), Box<dyn std::error::Error>> {
+    pub fn compress(&mut self, filepath: &PathBuf) -> Result<(), Box<dyn std::error::Error>> {
         
         // Instantiate TransferIngestion; validate schema against transfer dataset
         let mut transfer = TransferIngestion::new();
