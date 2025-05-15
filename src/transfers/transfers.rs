@@ -48,7 +48,7 @@ impl Transfer {
         // Instantiate TransferIngestion; validate schema against transfer dataset
         let mut transfer = TransferIngestion::new();
         let schema_check = transfer.check_schema_validity(filepath).unwrap();
-        println!("schema check is {}", schema_check);
+        // println!("schema check is {}", schema_check);
         // let column_a = schema_check["value_string"].clone();
         // println!("{:?}", column_a);
 
