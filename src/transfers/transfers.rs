@@ -4,7 +4,7 @@ use polars::prelude::*;
 
 // internal code
 use super::ingestion::TransferIngestion;
-use crate::transfers::compression::{RLECompressedBlockNumberSeries, RLECompressedTransactionIndexSeries, compress_value_string};
+use crate::transfers::compression::{RLECompressedBlockNumberSeries, RLECompressedTransactionIndexSeries, NormalizedCompressedValueStrings};
 
 
 pub struct Transfer {
@@ -69,8 +69,10 @@ impl Transfer {
         let compressed_trans_index = transaction_compression.compress_transaction_index(&schema_check);
         // println!("Compressed transaction index: {:?}", compressed_trans_index);
 
-        // n) value_strings: unknown
-        let v_s_comp = compress_value_string(&schema_check);
+        // n) value_strings: normalization compression 
+        let mut value_string_compression: NormalizedCompressedValueStrings = NormalizedCompressedValueStrings::new();
+        let compressed_value_string = value_string_compression.compress_value_string(&schema_check);
+        // let v_s_comp = compress_value_string(&schema_check);
         // println!("value string: {:?}", v_s_comp);
 
 
