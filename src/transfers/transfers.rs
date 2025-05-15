@@ -8,9 +8,9 @@
     4) Write output parquet via `_update_path` impl
  */
 
-use std::fs::File;
+// use std::fs::File;
 use std::path::PathBuf;
-use polars::prelude::*;
+// use polars::prelude::*;
 
 // internal code
 use super::ingestion::TransferIngestion;
@@ -34,7 +34,7 @@ impl Transfer {
         Self {
             // og_df: DataFrame::default(),          // dataframe after schema check
             // compressed_df: DataFrame::default(),  // compresed dataframe; pre file write
-            output_filepath: PathBuf::new(),      // output filepath; 
+            output_filepath: PathBuf::new(),         // output filepath; 
         }
     }
 
@@ -67,18 +67,18 @@ impl Transfer {
            different approaches to construction. */
         
         // 1) block_number: rle compression
-        let mut block_compression = RLECompressedBlockNumberSeries::new();
-        let compressed_blocks = block_compression.compress_block_number(&schema_check);
+        let mut block_compression: RLECompressedBlockNumberSeries = RLECompressedBlockNumberSeries::new();
+        let _compressed_blocks = block_compression.compress_block_number(&schema_check);
         // println!("Compressed blocks: {:?}", compressed_blocks);
 
         // 2) transaction_index: rle compression
-        let mut transaction_compression = RLECompressedTransactionIndexSeries::new();
-        let compressed_trans_index = transaction_compression.compress_transaction_index(&schema_check);
+        let mut transaction_compression: RLECompressedTransactionIndexSeries = RLECompressedTransactionIndexSeries::new();
+        let _compressed_trans_index = transaction_compression.compress_transaction_index(&schema_check);
         // println!("Compressed transaction index: {:?}", compressed_trans_index);
 
         // n) value_strings: normalization compression 
         let mut value_string_compression: NormalizedCompressedValueStrings = NormalizedCompressedValueStrings::new();
-        let compressed_value_string = value_string_compression.compress_value_string(&schema_check);
+        let _compressed_value_string = value_string_compression.compress_value_string(&schema_check);
         // let v_s_comp = compress_value_string(&schema_check);
         // println!("value string: {:?}", v_s_comp);
 

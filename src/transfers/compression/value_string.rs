@@ -25,7 +25,7 @@ impl NormalizedCompressedValueStrings {
         }
     }
 
-    // pub fn compress_value_string(&mut self, dataset: &DataFrame) -> Result<(Vec<u32>, Vec<u16>), Box<dyn std::error::Error>> {
+    /// Compress value string column of Transfer dataset through vector normalization.
     pub fn compress_value_string(&mut self, dataset: &DataFrame) -> Result<Vec<f64>, Box<dyn std::error::Error>> {
 
         // Distill value_string column from dataset and unwrap the str's
@@ -77,6 +77,12 @@ impl NormalizedCompressedValueStrings {
         Ok(self.normalized_vs_vec.clone())
 
 
+    }
+
+
+    pub fn decompress_value_string(&mut self, dataset: &DataFrame) -> Result<(), Box<dyn std::error::Error>> {
+
+        Ok(())
     }
 
 
