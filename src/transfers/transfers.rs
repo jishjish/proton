@@ -1,10 +1,24 @@
+/* OVERALL COMPRESSION ORCHESTRATION PROCESS
+    1) Cross reference incoming dataset against valid schema
+    2) Pass columns through independent algorithms
+        a. Handled in separate files due to specialized
+           compression algorithms for each column type
+    3) Generate dataframes, stack, prepare for writing
+       to the aggregated parquet file
+    4) Write output parquet via `_update_path` impl
+ */
+
 use std::fs::File;
 use std::path::PathBuf;
 use polars::prelude::*;
 
 // internal code
 use super::ingestion::TransferIngestion;
-use crate::transfers::compression::{RLECompressedBlockNumberSeries, RLECompressedTransactionIndexSeries, NormalizedCompressedValueStrings};
+use crate::transfers::compression::{
+    RLECompressedBlockNumberSeries, 
+    RLECompressedTransactionIndexSeries, 
+    NormalizedCompressedValueStrings
+};
 
 
 pub struct Transfer {
@@ -39,12 +53,6 @@ impl Transfer {
 
     pub fn orchestrate(&mut self, filepath: &PathBuf) -> Result<(), Box<dyn std::error::Error>> {
         
-        /*********** OVERALL PROCESS ***********/
-        // 1) Cross reference incoming dataset against valid schema
-        // 2) Pass columns through compression algorithms
-        // 3) Generate dataframes, stack dataframes
-        // 4) Write output via `_update_path` 
-
         // Instantiate TransferIngestion; validate schema against transfer dataset
         let mut transfer = TransferIngestion::new();
         let schema_check = transfer.check_schema_validity(filepath).unwrap();
@@ -52,10 +60,9 @@ impl Transfer {
         // let column_a = schema_check["value_string"].clone();
         // println!("{:?}", column_a);
 
-
         // NOTE: Ensure congruency in df creation for various column compressions
         /* Given there are multiple compression algorithms being used it is 
-           imperative to use the proper creator function via transfers/utils.rs.
+           imperative to use the proper df creator function via transfers/utils.rs.
            For example, RLE uses a value/count approach and will likely need 
            different approaches to construction. */
         
